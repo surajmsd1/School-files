@@ -1,5 +1,5 @@
+import math
 # COMP 3200 - Fall 2021 - Programming Assignment 1
-
 # Complete all of the following functions. Currently they all just
 # 'pass' rather than explicitly return a value, which means that they
 # implicitly return None. They all include doctests, which you can
@@ -76,7 +76,13 @@ def ascend(xs):
     >>> ascend([1,3,2,6,5,6,9,0])
     [1, 3, 6, 6, 9]
     """
-    pass
+    if(len(xs)==0):
+        return xs
+    for i in range(0,len(xs)-1):
+        #how would you do short-circut here properly?
+        while(0<=i+1<len(xs) and xs[i]>xs[i+1]):
+            xs.pop(i+1)
+    return xs
 
 def closest_point(xys):
     """
@@ -88,7 +94,13 @@ def closest_point(xys):
     >>> closest_point([(1,2),(4,-2),(-0.5,0),(3.14,2)])
     (-0.5, 0)
     """
-    pass
+
+    index =[1000,None]
+    for pair in xys:
+        if math.sqrt((pair[0]**2)+(pair[1]**2)) < index[0]:
+           index[0] =math.sqrt((pair[0]**2)+(pair[1]**2))
+           index[1] = pair 
+    return index[1]
 
 
 def count_if(p, xs):
@@ -100,7 +112,11 @@ def count_if(p, xs):
     >>> count_if(lambda c: c.isupper(), list('Heavy Rain'))
     2
     """
-    pass
+    count =0
+    for value in xs:
+        if p(value) :
+            count = count +1
+    return count
 
 
 def find_last(p, xs):
@@ -112,7 +128,13 @@ def find_last(p, xs):
     >>> find_last(lambda x: x % 2 == 0, [7,2,5,4,4,1,6,3])
     6
     """
-    pass
+    last =None
+    for value in xs:
+        if p(value) :
+            last = value
+    return last
+
+
 
 
 def fixed_point(f, x0, n=1000):
@@ -132,7 +154,13 @@ def fixed_point(f, x0, n=1000):
     Not all functions have fixed points, and not all fixed points can be
     found using this simple technique.
     """
-    pass
+    value = x0           
+    for i in range(0,n):
+        if f(value)==(value):
+            return value
+        else:
+            value = f(value)
+    return None
 
 
 if __name__ == '__main__':
